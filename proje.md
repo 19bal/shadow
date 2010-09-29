@@ -2,6 +2,10 @@
 
 Gölgeden Kimlik Tespiti
 
+# Yol haritası
+
+**14.ekim.2010** a kadar hazırlanmalı.
+
 # Amaç
 
 Yürüyüş analizi bilgisayarla görüde son yıllarda çalışılan en yeni konulardan
