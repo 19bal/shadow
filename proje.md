@@ -68,7 +68,7 @@ http://server.cs.ucf.edu/~vision/news/Reilly_ECCV_2010_Geometric.pdf
 # Yöntem
 ###shape based
 Shape var. Based .....pdf makale
-##madole based
+##model based
 Silhoueete based human identification ... pdf makale
 
 
