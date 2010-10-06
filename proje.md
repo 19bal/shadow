@@ -58,14 +58,16 @@ Human Identiﬁcation Based on Gait,Springer-Verlag New York,Inc.Secaucus,NJ,USA
 http://www.google.com.tr/search?hl=tr&client=firefox-a&hs=Rr0&rls=org.mozilla:en-US:official&&sa=X&ei=eKh8TMazGMneONWn-YIE&ved=0CBkQvwUoAQ&q=shadow+detection&spell=1
 3. aerial image human detection/recognition/identification/tracking ile ilgili makaleler
 http://server.cs.ucf.edu/~vision/news/Reilly_ECCV_2010_Geometric.pdf
-4. Kaynakçada yer alan (ve varsa diğer ilgili) shadow biometric ile ilgili makaleler
+
 
 # Özgün değer
+
 
 1. Havadan çekilen videolardan kimlik tespiti mümkün olacaktır. 
 2. Var olan çalışmalardan farklı olaraktan önerilen yöntem sayesinde var olan gait recognition yöntemleri kullanılabilecektir
  
 # Yöntem
+Adrian'a göre gölgeler görnütlerden egmente edilerek çıkarılır.  Bütün silüetler aynı yüksekliğe ayarlanır. her bir gait sögüsü için spherical(küresel) harmonics çizilir. spherical harmonic s k-nearest kullanılarak sınıflandırlır. 
 ###shape based
 Shape var. Based .....pdf makale
 ##model based
