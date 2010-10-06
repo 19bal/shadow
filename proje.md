@@ -41,16 +41,44 @@ gait analysis, shadow biometric, airbone image
 
 # Konu ve Kapsam
 # Literatür Özeti
+http://fortune.is.kyushu-u.ac.jp/~yumi/pdf/BLISS_3AS_eXpress.pdf 
 
-1. gait analysis ile ilgili makaleler
+SHADOW IDENTIFICATION AND CLASSIFICATION USING INVARIANT COLOR MODELS
 
-2. shadow detection ile ilgili makaleler
+http://docs.google.com/viewer?a=v&q=cache:UWpsBpoemEEJ:citeseerx.ist.psu.edu/viewdoc/download%3Fdoi%3D10.1.1.10.6641%26rep%3Drep1%26type%3Dpdf+shadow+classification&hl=tr&gl=tr&pid=bl&srcid=ADGEESjCDYUJWK26_O7OzBEbhqcPKdT7oDtEa03IgYHxQi60r4-9qnfxVMyvOmdjCQ8c_ep_XA4k2bhTa-4O1yzcpwywdOpkI4ZyAkZACY2YMoCDrV28JQGyN-VtgT1h9iMJiyy4FUmj&sig=AHIEtbQix-sxI0fcFA6EqGUawDLMsDAJ4Q 
 
+1.	gait analysis ile ilgili makaleler
+Determining Height and Gender of a Subject Using Gait
+http://www.ece.umd.edu/RITE/archives/merit2007/merit_fair07_reports/report_02_Kuhlman.pdf
+
+farklı bi makale
+Human Identiﬁcation Based on Gait,Springer-Verlag New York,Inc.Secaucus,NJ,USA,2006.  
+
+2.	shadow detection ile ilgili makaleler
+http://www.google.com.tr/search?hl=tr&client=firefox-a&hs=Rr0&rls=org.mozilla:en-US:official&&sa=X&ei=eKh8TMazGMneONWn-YIE&ved=0CBkQvwUoAQ&q=shadow+detection&spell=1
 3. aerial image human detection/recognition/identification/tracking ile ilgili makaleler
-
+http://server.cs.ucf.edu/~vision/news/Reilly_ECCV_2010_Geometric.pdf
 4. Kaynakçada yer alan (ve varsa diğer ilgili) shadow biometric ile ilgili makaleler
 
 # Özgün değer
+
+1. Havadan çekilen videolardan kimlik tespiti mümkün olacaktır. 
+2. Var olan çalışmalardan farklı olaraktan önerilen yöntem sayesinde var olan gait recognition yöntemleri kullanılabilecektir
+ 
+# Yöntem
+###shape based
+Shape var. Based .....pdf makale
+##madole based
+Silhoueete based human identification ... pdf makale
+
+
+####yöntem
+a-segmentasyon
+b-silüet stabdartlaştırma
+c-her bir frame deki uzaysal özlellikleri çıkarma
+d-frekans analizi ve sınıflandırma
+
+
 
 1. Havadan çekilen videolardan kimlik tespiti mümkün olacaktır. 
 2. Var olan çalışmalardan farklı olaraktan önerilen yöntem sayesinde var olan gait recognition yöntemleri kullanılabilecektir
