@@ -76,7 +76,7 @@ Silhoueete based human identification ... pdf makale
 
 ####yöntem
 a-segmentasyon
-b-silüet stabdartlaştırma
+b-silüet standartlaştırma
 c-her bir frame deki uzaysal özlellikleri çıkarma
 d-frekans analizi ve sınıflandırma
 
