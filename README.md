@@ -1,2 +1,1 @@
 Gölgeden Gait Analysis
-deneme
