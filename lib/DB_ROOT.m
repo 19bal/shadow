@@ -1,2 +1,4 @@
 function dbnm = DB_ROOT()
-dbnm = '/mnt/db/';
+
+t = textread('.dbroot', '%s');
+dbnm = t(1);
