@@ -1,4 +1,4 @@
-function dbnm = DB_ROOT()
+function dbnm = DB_ROOT(LIB_PATH)
 
-t = textread('.dbroot', '%s');
-dbnm = t(1);
+t = textread(strcat(LIB_PATH,'.dbroot'), '%s');
+dbnm = char(t(1));

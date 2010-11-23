@@ -3,7 +3,7 @@ LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
 addpath(LIB_PATH,'-end');                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dbnm = pathos(strcat(DB_ROOT(), 'gait/surveillance/'));
+dbnm = pathos(strcat(DB_ROOT(LIB_PATH), 'gait/surveillance/'));
 DIR = dir(strcat(dbnm, '*.png'));
 dbg = true;
 
