@@ -6,6 +6,7 @@ DIR = DIR(1:150);
 
 % bg-model
 bg_med = bg_color(DIR, dbnm, dbg);
+save bgmodel.mat bg_med
 
 T = 50;
 sz = length(DIR);
