@@ -17,3 +17,5 @@ bw görüntülerdeki insan dışı bileşenler temizlendikten sonrasında silüe
 silüetlerden soldaki alınıp 64x64 alana hapsedilince de,
 
 ![64x64](https://github.com/19bal/shadow/raw/master/7-medfilt-bgmodel/assets/64x64.gif)
+
+Şimdi sırada `8-iwashita10-shadow-separation` çalışması yardımıyla shadow un body den ayrılması kaldı.
