@@ -21,17 +21,19 @@ end
 DIR = dir(strcat(dbnm_bw, '*.png'));
 sz = length(DIR);
 
-for f = 1:sz,
+for f = 1:135,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
     
     imgnm = DIR(f).name;    
     bw = double(imread(strcat(dbnm_bw, imgnm)));
-   
+    
+    bwr = insanlar(bw);
+    
     if dbg
         figure(1);
             subplot(121),   imshow(bw),     title('bw');
-            subplot(122),   imshow(bw),     title('');
+            subplot(122),   imshow(bwr),     title('bwr');
         drawnow;
-    end    
-        
+    end           
+    
 end
