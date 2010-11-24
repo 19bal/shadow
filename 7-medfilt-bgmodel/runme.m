@@ -3,46 +3,35 @@ LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
 addpath(LIB_PATH,'-end');                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dbg = false;
+dbg = true;
 
 dbnm = pathos(strcat(DB_ROOT(LIB_PATH), 'gait/surveillance/'));
 dbnm_bw = pathos('_db/bw/');
 
-DIR = dir(strcat(dbnm, '*.png'));
-
 if ~exist((pathos('_bkp/bg_model.png'))),
-    bg = bg_model(DIR, 200, dbnm, dbg);
+    bg = bg_model(dbnm, 200, dbg);
 else
     bg = imread(pathos('_bkp/bg_model.png'));
 end
 
-alpha = 0.00;   % devreye almak icin 0.05 degerini kullanabilirsin 
-T = 30;
-mc = 25;    Mc = 45;
-sz = length(DIR);
+if length(dir(strcat(dbnm_bw, '*.png'))) < 1
+    dbnm_bw = frm2bw_db(dbnm, bg, dbg);
+end
 
-bg = double(bg);
+DIR = dir(strcat(dbnm_bw, '*.png'));
+sz = length(DIR);
 
 for f = 1:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
     
     imgnm = DIR(f).name;    
-    cfrm = double(imread(strcat(dbnm, imgnm)));
-    
-    fark = abs(cfrm - bg);
-    
-    % bg update with running average    
-    bg = alpha * cfrm + (1 - alpha) * bg;
-    
-    bw = (fark > T);    
-    confC = frm2confC(cfrm, bg, mc, Mc, T, false);
-     
+    bw = double(imread(strcat(dbnm_bw, imgnm)));
+   
     if dbg
         figure(1);
-            subplot(121),   imshow(uint8(cfrm))
-            subplot(122),   imshow(confC)
+            subplot(121),   imshow(bw),     title('bw');
+            subplot(122),   imshow(bw),     title('');
         drawnow;
     end    
-    
-    imwrite(confC, strcat(dbnm_bw, imgnm));
+        
 end
