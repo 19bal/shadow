@@ -33,20 +33,27 @@ for f = 1:135,
     imgnm_bw = DIR_bw(f).name;    
     bw = double(imread(strcat(dbnm_bw, imgnm_bw)));
     
-    bwr = insanlar(bw, false);
+    if length(dir(strcat(dbnm_siluet, '*.png'))) < 1
+        bwr = insanlar(bw, false);
+        imwrite(bwr, strcat(dbnm_siluet, imgnm));
+    else
+        bwr = imread(strcat(dbnm_siluet, imgnm));
+    end
     
     frh = fr .* uint8(cat(3, bwr,bwr,bwr));
-    if dbg
-        figure(1);
-            subplot(121),   imshow(bwr),     title('bwr');
-            subplot(122),   imshow(frh),    title('insanlar');
-        drawnow;
+    
+    if length(dir(strcat(dbnm_64x64, '*.png'))) < 1
+        bw64x64 = bwsresize(bwscrop(bw2silh(bwr)));
+        imwrite(bw64x64, strcat(dbnm_64x64, imgnm));
+    else
+        bw64x64 = imread(strcat(dbnm_64x64, imgnm));
     end
 
-    if length(dir(strcat(dbnm_siluet, '*.png'))) < 1
-       imwrite(bwr, strcat(dbnm_siluet, imgnm));
-    end
-    
-    bw64x64 = bwsresize(bwscrop(bw2silh(bwr)));
-    imwrite(bw64x64, strcat(dbnm_64x64, imgnm));
+    if dbg
+        figure(1);
+            subplot(221),   imshow(bwr),        title('bwr');
+            subplot(222),   imshow(frh),        title('insanlar');
+            subplot(223),   imshow(bw64x64),    title('64x64');
+        drawnow;
+    end    
 end
