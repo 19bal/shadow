@@ -6,14 +6,13 @@ addpath(LIB_PATH,'-end');                                                 %
 dbnm = pathos(strcat(DB_ROOT(LIB_PATH), 'gait/surveillance/'));
 DIR = dir(strcat(dbnm, '*.png'));
 dbg = true;
+is_create_bgmodel = false;
 
-DIR = DIR(1:200);
-
-% bg-model
-bg_med = bg_color(DIR, dbnm, dbg);
-
-imwrite(bg_med, pathos('_bkp/bg_med.png'));
-bg_med = imread(pathos('_bkp/bg_med.png'));
+if ~exist((pathos('_bkp/bg_model.png'))),
+    bg = bg_model(DIR, 200, dbnm, dbg);
+else
+    bg = imread(pathos('_bkp/bg_model.png'));
+end
 
 T = 30;
 mc = 25;    Mc = 45;
@@ -23,10 +22,10 @@ for f = 1:sz,
     imgnm = DIR(f).name;    
     cfrm = imread(strcat(dbnm, imgnm));  
     
-    fark = uint8(abs(double(cfrm) - double(bg_med)));
-    bw = (fark > T);
+    fark = uint8(abs(double(cfrm) - double(bg)));
     
-    confC = frm2confC(cfrm, bg_med, mc, Mc, T, false);
+    bw = (fark > T);    
+    confC = frm2confC(cfrm, bg, mc, Mc, T, false);
     
     
     figure(1);
