@@ -2,19 +2,22 @@
 % subtraction.  It may be used free of charge for any purpose (commercial
 % or otherwise), as long as the author (Seth Benton) is acknowledged.
 
+clear all;  close all;  clc;
 
-clear all
+%%%%%%%%%%%%%%%% D O   N O T   E D I T   M E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
+addpath(LIB_PATH,'-end');                                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% source = aviread('C:\Video\Source\traffic\san_fran_traffic_30sec_QVGA');
-% source = aviread('..\test_video\san_fran_traffic_30sec_QVGA_Cinepak');
-dbnm = '_db/';
+dbnm = pathos(strcat(DB_ROOT(LIB_PATH), 'gait/surveillance/'));
+% dbnm = pathos('_db/');
 DIR = dir(strcat(dbnm, '*.png'));
 dbg = true;
 
 % -----------------------  frame size variables -----------------------
 imgnm = DIR(1).name;    
-fr = imread(strcat(dbnm, imgnm));  % read in 1st frame as background frame
-fr_bw = rgb2gray(fr);     % convert background to greyscale
+fr = imread(strcat(dbnm, imgnm));   % read in 1st frame as background frame
+fr_bw = rgb2gray(fr);               % convert background to greyscale
 fr_size = size(fr);             
 width = fr_size(2);
 height = fr_size(1);
@@ -22,9 +25,8 @@ fg = zeros(height, width);
 bg_bw = zeros(height, width);
 
 % --------------------- mog variables -----------------------------------
-
 C = 3;                                  % number of gaussian components (typically 3-5)
-M = 3;                                  % number of background components
+M = 1;                                  % number of background components
 D = 2.5;                                % positive deviation threshold
 alpha = 0.01;                           % learning rate (between 0 and 1) (from paper 0.01)
 thresh = 0.25;                          % foreground threshold (0.25 or 0.75 in paper)
@@ -38,35 +40,25 @@ rank = zeros(1,C);                      % rank of components (w/sd)
 
 
 % --------------------- initialize component means and weights -----------
-
 pixel_depth = 8;                        % 8-bit resolution
 pixel_range = 2^pixel_depth -1;         % pixel range (# of possible values)
 
-for i=1:height
-    for j=1:width
-        for k=1:C
-            
-            mean(i,j,k) = rand*pixel_range;     % means random (0-255)
-            w(i,j,k) = 1/C;                     % weights uniformly dist
-            sd(i,j,k) = sd_init;                % initialize to sd_init
-            
-        end
-    end
-end
+mn = rand([height width C]) * pixel_range;  % means random (0-255)
+w  = ones([height width C]) * (1/C);        % weights uniformly dist
+sd = ones([height width C]) * sd_init;      % initialize to sd_init 
 
 %--------------------- process frames -----------------------------------
-
-for n = 1:length(DIR)
+for n = 2:length(DIR)
     imgnm = DIR(n).name;    
-    fr = imread(strcat(dbnm, imgnm));  
-
-    fr_bw = rgb2gray(fr);       % convert frame to grayscale
+    fr = imread(strcat(dbnm, imgnm));
+    fr_bw = rgb2gray(fr);               % convert frame to grayscale
     
     % calculate difference of pixel values from mean
-    for m=1:C
-        u_diff(:,:,m) = abs(double(fr_bw) - double(mean(:,:,m)));
+    for i=1:C
+        fr_bwC(:,:,i) = fr_bw;
     end
-     
+    u_diff = abs(double(fr_bwC) - double(mn));
+    
     % update gaussian components for each pixel
     for i=1:height
         for j=1:width
@@ -80,8 +72,8 @@ for n = 1:length(DIR)
                     % update weights, mean, sd, p
                     w(i,j,k) = (1-alpha)*w(i,j,k) + alpha;
                     p = alpha/w(i,j,k);                  
-                    mean(i,j,k) = (1-p)*mean(i,j,k) + p*double(fr_bw(i,j));
-                    sd(i,j,k) =   sqrt((1-p)*(sd(i,j,k)^2) + p*((double(fr_bw(i,j)) - mean(i,j,k)))^2);
+                    mn(i,j,k) = (1-p)*mn(i,j,k) + p*double(fr_bw(i,j));
+                    sd(i,j,k) =   sqrt((1-p)*(sd(i,j,k)^2) + p*((double(fr_bw(i,j)) - mn(i,j,k)))^2);
                 else                                    % pixel doesn't match component
                     w(i,j,k) = (1-alpha)*w(i,j,k);      % weight slighly decreases
                     
@@ -92,13 +84,13 @@ for n = 1:length(DIR)
             
             bg_bw(i,j)=0;
             for k=1:C
-                bg_bw(i,j) = bg_bw(i,j)+ mean(i,j,k)*w(i,j,k);
+                bg_bw(i,j) = bg_bw(i,j)+ mn(i,j,k)*w(i,j,k);
             end
             
             % if no components match, create new component
             if (match == 0)
                 [min_w, min_w_index] = min(w(i,j,:));  
-                mean(i,j,min_w_index) = double(fr_bw(i,j));
+                mn(i,j,min_w_index) = double(fr_bw(i,j));
                 sd(i,j,min_w_index) = sd_init;
             end
 
@@ -144,17 +136,11 @@ for n = 1:length(DIR)
         end
     end
     
-    figure(1),subplot(3,1,1),imshow(fr)
-    subplot(3,1,2),imshow(uint8(bg_bw))
-    subplot(3,1,3),imshow(uint8(fg)) 
-    
+    figure(1),
+    subplot(311),   imshow(fr),             title('Frame');
+    subplot(312),   imshow(uint8(bg_bw)),   title('bg\_bw');
+    subplot(313),   imshow(uint8(fg)),      title('fg');    
     drawnow
-    %Mov1(n)  = im2frame(uint8(fg),gray);           % put frames into movie
-    %Mov2(n)  = im2frame(uint8(bg_bw),gray);           % put frames into movie
-    
 end
-      
-%movie2avi(Mov1,'mixture_of_gaussians_output','fps',30);           % save movie as avi 
-%movie2avi(Mov2,'mixture_of_gaussians_background','fps',30);           % save movie as avi 
 
  
