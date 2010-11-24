@@ -27,7 +27,7 @@ for f = 1:135,
     imgnm = DIR(f).name;    
     bw = double(imread(strcat(dbnm_bw, imgnm)));
     
-    bwr = insanlar(bw);
+    bwr = insanlar(bw, false);
     
     if dbg
         figure(1);

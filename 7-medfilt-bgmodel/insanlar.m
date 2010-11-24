@@ -1,4 +1,4 @@
-% function bwr = insanlar(bw, dbg)
+function bwr = insanlar(bw, dbg)
 dip_initialise('silent');
 
 bw = logical(bw);
@@ -8,31 +8,42 @@ b = bskeleton(a,0,'natural');
 
 bw2 = logical(b);
 L = bwlabel(bw2);
+Lv = L(:);
 
 % L icerisindekileri frekansina gore sirala
-Lv = L(:);
-N = hist(Lv, max(Lv));
-N = N(2:end);   % 0 arkaplanini cikart
-
-if dbg
-    figure(11), plot(N)
+sz = max(Lv);
+for i=1:sz
+    N(i) = length(find(Lv == i));
 end
 
-[lmv, ind] = lmax(N);
-[v, ind] = sort(lmv, 'descend');
+ind = 1:length(N);
 
-T = 5;
-indk = ind(v > T) + 1;  % "0 arkaplanini cikart"tigimizdan "1" ekledik
+if dbg
+    figure(11), plot(ind, N, '*')
+end
 
-bwr = zeros(size(bw));
+[v, iv] = sort(N, 'descend');
 
+T = 10;
+indk = iv(v > T);
+
+% skeleton
+bws = zeros(size(bw));
 for i=1:length(indk),
     t = bw;
     k = indk(i);
     t(L ~= k) = 0;
     t(L == k) = 1;
     
-    bwr = bwr + t;
+    bws = bws + t;
 end
 
-bwr = logical(bwr);
+% maske
+a = dip_image(logical(bw));
+b = dip_image(logical(bws));
+c = bdilation(b, 5,-1,0);
+bwr = logical(a * c);
+
+
+
+
