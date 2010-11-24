@@ -9,7 +9,7 @@ end
 %% a) median
 %   frame indisince ortanca
 %   tum framelerin ortancasi: resim (RGB)
-bg_med = median(double(frm), 4);
+bg_med = uint8(median(double(frm), 4));
 
 if dbg,
     figure(11);              imshow(uint8(bg_med));

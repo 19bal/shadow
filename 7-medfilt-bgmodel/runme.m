@@ -11,9 +11,9 @@ DIR = DIR(1:200);
 
 % bg-model
 bg_med = bg_color(DIR, dbnm, dbg);
-save bg_med.mat bg_med
 
-load bg_med
+imwrite(bg_med, pathos('_bkp/bg_med.png'));
+bg_med = imread(pathos('_bkp/bg_med.png'));
 
 T = 30;
 mc = 25;    Mc = 45;
