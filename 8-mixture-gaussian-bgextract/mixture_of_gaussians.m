@@ -6,11 +6,14 @@
 clear all
 
 % source = aviread('C:\Video\Source\traffic\san_fran_traffic_30sec_QVGA');
-source = aviread('..\test_video\san_fran_traffic_30sec_QVGA_Cinepak');
+% source = aviread('..\test_video\san_fran_traffic_30sec_QVGA_Cinepak');
+dbnm = '_db/';
+DIR = dir(strcat(dbnm, '*.png'));
+dbg = true;
 
 % -----------------------  frame size variables -----------------------
-
-fr = source(1).cdata;           % read in 1st frame as background frame
+imgnm = DIR(1).name;    
+fr = imread(strcat(dbnm, imgnm));  % read in 1st frame as background frame
 fr_bw = rgb2gray(fr);     % convert background to greyscale
 fr_size = size(fr);             
 width = fr_size(2);
@@ -53,9 +56,10 @@ end
 
 %--------------------- process frames -----------------------------------
 
-for n = 1:length(source)
+for n = 1:length(DIR)
+    imgnm = DIR(n).name;    
+    fr = imread(strcat(dbnm, imgnm));  
 
-    fr = source(n).cdata;       % read in frame
     fr_bw = rgb2gray(fr);       % convert frame to grayscale
     
     % calculate difference of pixel values from mean
@@ -144,12 +148,13 @@ for n = 1:length(source)
     subplot(3,1,2),imshow(uint8(bg_bw))
     subplot(3,1,3),imshow(uint8(fg)) 
     
-    Mov1(n)  = im2frame(uint8(fg),gray);           % put frames into movie
-    Mov2(n)  = im2frame(uint8(bg_bw),gray);           % put frames into movie
+    drawnow
+    %Mov1(n)  = im2frame(uint8(fg),gray);           % put frames into movie
+    %Mov2(n)  = im2frame(uint8(bg_bw),gray);           % put frames into movie
     
 end
       
-movie2avi(Mov1,'mixture_of_gaussians_output','fps',30);           % save movie as avi 
-movie2avi(Mov2,'mixture_of_gaussians_background','fps',30);           % save movie as avi 
+%movie2avi(Mov1,'mixture_of_gaussians_output','fps',30);           % save movie as avi 
+%movie2avi(Mov2,'mixture_of_gaussians_background','fps',30);           % save movie as avi 
 
  
