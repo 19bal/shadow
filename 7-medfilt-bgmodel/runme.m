@@ -8,6 +8,7 @@ dbg = true;
 dbnm = pathos(strcat(DB_ROOT(LIB_PATH), 'gait/surveillance/'));
 dbnm_bw = pathos('_db/bw/');
 dbnm_siluet = pathos('_db/siluet/');
+dbnm_64x64  = pathos('_db/64x64/');
 
 if ~exist((pathos('_bkp/bg_model.png'))),
     bg = bg_model(dbnm, 200, dbg);
@@ -45,4 +46,7 @@ for f = 1:135,
     if length(dir(strcat(dbnm_siluet, '*.png'))) < 1
        imwrite(bwr, strcat(dbnm_siluet, imgnm));
     end
+    
+    bw64x64 = bwsresize(bwscrop(bw2silh(bwr)));
+    imwrite(bw64x64, strcat(dbnm_64x64, imgnm));
 end
