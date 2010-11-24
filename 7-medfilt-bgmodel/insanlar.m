@@ -7,7 +7,7 @@ a = dip_image(bw);
 b = bskeleton(a,0,'natural');
 
 bw2 = logical(b);
-L = bwlabel(bw2);
+L = bwlabel(bw2,8);
 Lv = L(:);
 
 % L icerisindekileri frekansina gore sirala
@@ -41,7 +41,7 @@ end
 % maske
 a = dip_image(logical(bw));
 b = dip_image(logical(bws));
-c = bdilation(b, 5,-1,0);
+c = bdilation(b, 8,-1,0);
 bwr = logical(a * c);
 
 
