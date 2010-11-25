@@ -4,7 +4,7 @@ zamanda median filtre uygulama temelli bgmodel-bgextract çalışması
 
 önce elimizde renkli video vardı,
 
-![giriş video](/assets/surveillance.gif)
+![giriş video](https://github.com/19bal/shadow/raw/master/7-medfilt-bgmodel/assets/surveillance.gif)
 
 sonra zamanda yürüyen median filtre yardımıyla [bgmodeli](http://cloud.github.com/downloads/19bal/shadow/bg_model.png) elde ettik, bunu kullanarak basit eşiklemeyle bw görüntüler elde edildi,
 
