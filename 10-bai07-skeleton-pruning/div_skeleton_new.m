@@ -1,5 +1,6 @@
 
 function [bw,I0,x,y,x1,y1,aa,bb]=div_skeleton_new(ro,T1,I0,no_vertice)
+% function [bw,I0,x,y,x1,y1,aa,bb]=div_skeleton_new(ro,T1,I0,no_vertice)
 %Output: bw is skeleton image, I0 is original image
 %        [x,y] is DCE verices, and [x1,y1] is skeleton endpoints
 %        [aa,bb] is the original contour 
