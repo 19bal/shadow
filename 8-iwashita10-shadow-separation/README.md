@@ -7,5 +7,9 @@ Iwashita10: Person Identification using Shadow Analysis, Yumi Iwashita, BMVC 201
 
 - biri dikey digeri yatay cizgi uydur. Hough transform yardimci olacaktir.
 
-- budama gerekti, nasıl?
+- budama gerekti, nasıl? Bununla alakalı çok güzel kaynaklar buldum,
+
+1. http://www.ehu.es/ccwintco/index.php/Skeletonization,_skeleton_pruning_and_simple_skeleton_graph_construction_example_in_Matlab
+2. http://knight.cis.temple.edu/~shape/partshape/structure/
+3. [Code](http://www.ehu.es/ccwintco/uploads/a/a0/Skeleton2Graph.zip)
 
