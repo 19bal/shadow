@@ -48,6 +48,12 @@ for f = 1:sz,
     
     id_shadow = ti(idx(idy));
     
+    % BUG FIX: her birisi icin ekstra kontrol yap
+    % yakin/benzer degilse ele
+    
+    % egri uydur: body, shadow
+    % iki egrinin kesim noktasi = ayrim noktasidir
+    
     bws = ismember(L, [id_body id_shadow]);
     imwrite(bws, strcat(dbnm_septs, imgnm));
     
