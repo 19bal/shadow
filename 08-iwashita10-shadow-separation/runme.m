@@ -56,11 +56,15 @@ for f = 1:sz,
     
     bws = ismember(L, [id_body id_shadow]);
     imwrite(bws, strcat(dbnm_septs, imgnm));
+    sp = separation_point(bws, dbg);
     
     if dbg
         figure(1);
             subplot(121),   imshow(bw),        title('iskelet');
             subplot(122),   imshow(bws),        title('');
+            hold on;
+            plot(sp(1), sp(2), 'rs');
+            hold off;
         drawnow;
     end     
 end
