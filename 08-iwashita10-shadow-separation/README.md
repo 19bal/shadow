@@ -1,4 +1,4 @@
-Iwashita10: Person Identification using Shadow Analysis, Yumi Iwashita, BMVC 2010
+[Iwashita10](http://www.bmva.org/bmvc/2010/conference/paper35/paper35.pdf): Person Identification using Shadow Analysis, Yumi Iwashita, BMVC 2010
 
 - bw64x64 resminin iskeletini cikart:OK
 
