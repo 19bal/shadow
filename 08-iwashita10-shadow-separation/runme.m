@@ -15,11 +15,13 @@ sz = length(DIR);
 
 dip_initialise('silent');
 
-for f = 3:sz,
+for f = 78%:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
     imgnm = DIR(f).name;    
     bw = imread(strcat(dbnm, imgnm));
+    
+    figure(2),  imshow(bw)
     
     bw = buda(bw, dbg);
     [bwb, bws] = bs_ayir(bw, dbg);
