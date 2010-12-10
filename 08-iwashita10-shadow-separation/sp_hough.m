@@ -1,5 +1,5 @@
-function sp = separation_point(bw, dbg)
-% function sp = separation_point(bw, dbg)
+function sp = sp_hough(bw, dbg)
+% function sp = sp_hough(bw, dbg)
 
 % 1. Hough transform
 [H,T,R] = hough(bw);
