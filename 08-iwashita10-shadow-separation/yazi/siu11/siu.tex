@@ -1,0 +1,258 @@
+\documentclass{article}
+\usepackage{siu,amssymb,amsmath,epsfig}
+\usepackage[latin5]{inputenc}
+\RequirePackage[turkish]{babel}
+
+\setcounter{page}{1}
+\sloppy
+\ninept
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bu latex örnek bildirisi Stephen Martucci tarafından EUROSPEECH      %%
+%% Konferansı için oluşturulmuştur. Engin Erzin tarafından Türkçe'ye    %%
+%% çevrilmiş ve Alper Erdoğan tarafından siu2003.sty kullanacak ve      %%
+%% Türkçe makaleleri destekleyecek şekilde yeniden düzenlenmiştir.      %%
+%% Sabancı Üniversitesi VPA lab tarafından siu2006' ya uyarlanmıştır.   %%
+%%  09 Aralık 2005                                                      %%
+%% Gürhan Bulu tarafından değişiklik yapılarak siu2011'de               %%
+%% kullanılmak üzere düzenlenmiştir.                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bu latex örnek bildirisi Siu
+%% dvi dosyasını direk olarak pdf'e cevirmenizi oneririz.(dvipdf kullanarak)
+%% dvips kullanımı sonucu oluşturulan ps dosyalarında Türkçe karakterleri
+%% hatalı çıkmaktadır.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{BİLDİRİ BAŞLIĞI (TÜRKÇE)
+\\TITLE OF PAPER (IN ENGLISH)}
+
+\name{{\it Ali Yazar}}
+\address{Elektrik ve Elektronik Mühendisliği Bölümü\\
+	ABC Üniversitesi\\
+	metinyazar@abc.edu.tr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Eğer birden fazla yazar varsa, aşağıdaki yapıyı kullanın.            %%
+%%                                                                      %%
+%% (by Stephen Martucci, author of spconf.sty).                         %%
+%%                                                                      %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Two addresses (uncomment and modify for two-address case).
+
+%\twoauthors
+%  {Ali Yazar, Veli Çizer}
+%	{Elektrik ve Elektronik Mühendisliği Bölümü\\
+%	ABC Üniversitesi\\
+%	{aliyazar,velicizer}@abc.edu.tr}
+%  {Mehmet Okur}
+%	{Haberleşme Mühendisliği Bölümü\\
+%	EFG Üniversitesi\\
+%	mehmetokur@efg.edu.tr}
+% ----------------------------------------------------------
+%\makeatletter
+%\def\name#1{\gdef\@name{#1\\}}
+%\makeatother
+%\name{{\em Ali Yazar$^1$, Veli Yazar$^1$, Mehmet Yazar$^2$,}}
+%%%%%%%%%%%%%%%% Birden fazla yazar için gerekli düzenlemelerin sonu %%%%%%%%%%%%%%%%%
+%\address{1. Elektrik Elektronik Mühendisliği Bölümü   \\
+%İşaret Üniversitesi, Sinyalkent \\
+%{\small \tt aliyazar@isaret.edu.tr, veliyazar@isaret.edu.tr} \\
+%2. Bilgisayar Mühendisliği Bölümü   \\
+%İşaret Üniversitesi, Sinyalkent \\
+%{\small \tt mehmetyazar@isaret.edu.tr}}
+
+%\easyturkish
+\begin{document}
+\maketitle
+%
+
+\begin{ozetce}
+Bu doküman, 20-22 Nisan 2011 tarihleri arasında yapılacak olan Sinyal İşleme ve İletişim Uygulamaları (IEEE SİU2011) Kurultayı bildirileri için gerekli düzeni belirtmekte ve taslak örneği sunmaktadır.  Bu bildiri taslağı IEEE SİU2011 ve  IEEE stiline uygun önceki taslaklar temel alınarak düzenlenmiş olup bildirilerin elektronik ortamda istenilen şablon içerisine daha kolay oturtulması için hazırlanmıştır. Bütün bildiriler TÜRKÇE olmak zorundadır. Özetçe ve Abstract italik iki yana yaslı olmalıdır.
+\end{ozetce}
+
+
+\begin{abstract}
+Leave a 0.5 inch (12 mm) space between the Özetçe and Abstract. The abstracts should contain about 100 to 150 words, and should be identical to the abstract text submitted electronically along with the paper cover sheet. In addition, the abstract in English should be exact translation of the one in Turkish.
+\end{abstract}
+
+
+\section{GİRİŞ}
+
+Bu örneğe konferansın web sayfasından ulaşabilirsiniz. Lütfen
+bildiri sunumunuzu MS-Word97® veya LaTeX formatında bir dosya
+şeklinde hazırlayınız. Bildirilerin tam metninin sunumu hakkındaki
+bilgiye $<$ http://siu2011.hacettepe.edu.tr/$>$ adresinden ulaşabilirsiniz.
+Aynı adreste bildirilerin hazırlanışı ve taslakların kullanımına
+ilişkin yönlendirmeler de bulunmaktadır.
+
+\section{SAYFA DÜZENİ VE BİÇEM}
+
+Sayfa düzeni yapılırken aşağıdaki kurallara uyulmalıdır. Hazır bir
+taslak (Word® yada LaTeX) kullanmanız veya ayrıntıların kontrolü
+için örnek bir dosya takip etmeniz bu gereklilikleri yerine getirmeniz
+açısından önerilir.
+
+\subsection{Temel Düzen Özellikleri}
+
+\begin{itemize}
+\item Bildiriler A4 formatında hazırlanmalıdır.
+\item Başlık kısmı ve sayfa genişliğindeki şekillerin kullanımı dışında metin iki sütundan oluşmalıdır.
+\item Sol kenar boşluğu 20 mm.
+\item Sütun genişliği 80 mm.
+\item Sütunlar arası boşluk 10 mm.
+\item Üst kenar boşluğu 25 mm (ilk sayfa dışında, ilk sayfanın üst
+kenar boşluğu bildiri baslığına 30 mm olmalıdır).
+\item Metin uzunluğu (sayfa başlığı ve altlığı hariç) en fazla 235 mm.
+\item Sayfa başlığı ve altlığı boş bırakılmalıdır (baskı ve SİU 2011 CD-ROM için eklenecek).
+\item Paragraf girintisi ve satır aralıkları örnek dosyayla
+(PDF veya Postscript formatında) karşılaştırarak kontrol edilmelidir.
+\end{itemize}
+
+
+\subsubsection{Başlıklar}
+
+Bölüm başlıkları kalın ve ortalanmış olmalı başlığın tümü büyük harfle
+yazılmalıdır. Alt başlıkta ise sadece ilk kelimenin baş harfi büyük,
+başlığın gerisi küçük harflerle olmalı ve sola dayalı olarak yazılmalıdır.
+Alt başlıkların altındaki diğer başlıklar da alt başlıklarla aynı formatta
+yalnız italik harflerle kalınlaştırılmadan yazılmalıdır. Üç dereceden fazla
+başlık atılmamalıdır.
+
+
+\subsection{Yazı Tipi}
+
+Ana metin için Times veya Times New Roman kullanılmalıdır. Önerilen
+karakter boyutu ve aynı zamanda kullanılabilecek en küçük boyut 9'dur.
+Özel haller durumunda diğer yazı karakterleri de kullanılabilir.
+En son PostScript dosyasını oluştururken bütün yazı karakterlerinin
+eklenmesi unutulmamalıdır.
+
+LaTeX kullanıcıları: Metin için Computer Modern yazı karakterleri
+kullanılmamalıdır. (Biçim dosyasında Times belirtilmiştir). Mümkünse
+dosyanın en son şekli POSTSCRIPT yazı karakterleri kullanılarak hazırlanmalıdır.
+Bu ayrıntı gereklidir; çünkü örneğin, non-ps Computer Modern ile yazılan denklemleri
+ekranda okumak zordur.
+
+
+
+ \subsection{Şekiller}
+Bütün şekiller sütuna (veya sekil iki sütunu da kaplıyorsa sayfaya )
+göre ortalanmalıdır. Şekillerin başlıkları her şeklin altına yazılmalı
+ve Şekil \ref{spprod}'de gösterilen düzende olmalıdır.
+
+Şekillerin çizgili kutular olması tercih edilir. Şekiller koyu veya
+renkli bölgeler içeriyorsa, yüksek kaliteli, renksiz lazer yazıcılarda
+düzgün basılabilir olup olmadığı kontrol edilmelidir. Bildiri metninde
+kullanılan şekiller gri tonda sadece imgeler renkli tonda olabilir.
+
+
+\subsection{Tablolar}
+
+ Bir tablo örneği Tablo \ref{table1}'de
+verilmiştir. Tipine ve kullanım amacına göre değişik bazı tablolar
+da kullanılabilir. Tablonun başlığı tablonun altında veya üstünde
+olabilir.
+
+
+
+\subsection{Denklemler}
+
+Denklemlerin her biri ayrı satırlara yazılmalı ve
+numaralandırılmalıdır. Aşağıda bazı örnekler verilmiştir. Örneğin,
+\begin{equation}
+\label{eq1}
+ x(t)=s(f_\omega(t))
+\end{equation}
+$f_\omega(t)$ bir özel dönüşüm fonksiyonu iken
+\begin{equation}
+f_\omega(t)=\frac{1}{2\pi j}\oint_C\frac{v^{-1k}dv}{1-\beta
+v^{-1}{v^{-1}-\beta }}
+\end{equation}
+
+Residue teoremine göre
+\begin{equation}
+ \oint_C F(z)dz=2 \pi j \sum_k Res[F(z),p_k]
+\label{eq3}
+\end{equation}
+(\ref{eq3}). denklemi (\ref{eq1}).'de yerine koyarsak,, açıkça
+görülür ki
+\begin{equation}
+1 + 1 = \pi \label{eq4}
+\end{equation}
+
+\begin{table}[t]
+\caption{ Bir Tablo Örneği}
+ \label{table1}
+ \vspace{2mm}
+\centerline{
+\begin{tabular}{|c|c|}
+\hline
+oran & dB \\
+\hline  \hline
+1/1 & 0 \\
+2/1 & $\approx 6$ \\
+3.16 & 10 \\
+10/1 & 20 \\
+1/10 & -20 \\
+100/1 & 40 \\
+1000/1 & 60 \\
+\hline
+\end{tabular}}
+\end{table}
+Sonuç olarak işaret işlemenin gizli teoremini ispatlamış oluruz.
+Sonucun ne kadar yararlı olduğunu göstermek için daha fazla
+matematiğe gerek yoktur!
+
+\begin{figure}[t]
+\begin{center}
+ \epsfxsize 3.2in
+ \leavevmode
+ \epsffile{test.eps}
+ \caption{Doğrusal Denkleştirici Modeli.  }
+ \label{spprod}
+ \end{center}
+\end{figure}
+
+
+ \subsection{Hyperlink'ler}
+
+Bildiride Hyperlink kullanılabilir. Yalnız unutmayın ki, sunulan dosya PostScript dosyasıysa Hyperlink bilgisi kaybolacaktır. PDF dosyalarının aksine PostScript dosyaları aktif link bilgisini taşıyamaz. Ayrıca bildiri gönderimi süresince yeni ek bilgi için Hyperlink belirtme seçeneğiniz olduğunu unutmayın. Bu Hyperlink CD-ROM'a da dahil edilecektir. Özellikle bir Hyperlink'ten başka linkler yoluyla konuyla ilgili (doküman, ses, çoklu-ortam vs.) daha geniş bilgiye ulaşma olasılığını göz önünde bulundurun. Hyperlink' in biçimi yazıyla aynı olup sadece altı çizili olmasına dikkat edilmelidir.
+
+\subsection{ Sayfa Numaraları}
+
+Sayfa numaraları daha sonra elektronik olarak dokümana eklenecektir.
+Sayfa başlığı veya altlığı konulmamalıdır.
+
+\subsection{ Kaynakça}
+
+Kaynakçanın biçimi standart IEEE kaynakça biçimidir. Kaynaklar
+kullanılış sırasına göre numaralandırılmalıdır. Örneğin
+\cite{ES1}, \cite{ES2}, ve \cite{ES3}...
+
+
+\section{SONUÇLAR}
+
+Bu taslağı konferansın web sayfasında bulabilirsiniz. $<$http://siu2011.hacettepe.edu.tr$>$
+SİU 2011 organizasyon komitesi bildirilerinizi bu taslağa
+uygun bir şekilde sorunsuz olarak düzenleme komitesine
+ulaştırdığınız için tüm SİU 2011 katılımcılarına teşekkür eder.
+
+
+\bibliographystyle{IEEEbib}
+\begin{kaynaklar}{10}
+\bibitem[1]{ES1} Smith, J. O. and Abel, J. S.,
+``Bark and {ERB} Bilinear Transforms'', IEEE Trans. Speech and
+Audio Proc., 7(6):697--708, 1999.
+\bibitem[2]{ES2} Lee, K.-F., Automatic Speech Recognition:
+The Development of the SPHINX SYSTEM, Kluwer Academic Publishers,
+Boston, 1989.
+\bibitem[3]{ES3} Rudnicky, A. I., Polifroni, Thayer, E. H.,
+ and Brennan, R. A.
+"Interactive problem solving with speech", J. Acoust. Soc. Amer.,
+Vol. 84, 1988, p S213(A).
+\end{kaynaklar}
+\end{document}
