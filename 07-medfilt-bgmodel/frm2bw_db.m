@@ -1,10 +1,10 @@
-function dbnm_bw = frm2bw_db(dbnm, bg, dbg);
-% function dbnm_bw = frm2bw_db(dbnm, bg, dbg);
+function dbnm_bw = frm2bw_db(dbnm, dbnm_bw, bg, dbg);
+% function dbnm_bw = frm2bw_db(dbnm, dbnm_bw, bg, dbg);
 alpha = 0.00;   % devreye almak icin 0.05 degerini kullanabilirsin 
 T = 30;
 mc = 25;    Mc = 45;
 
-dbnm_bw = pathos('_db/bw/');
+mkdir(dbnm_bw);
 
 DIR = dir(strcat(dbnm, '*.png'));
 sz = length(DIR);

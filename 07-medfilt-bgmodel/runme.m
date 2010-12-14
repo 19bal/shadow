@@ -6,18 +6,21 @@ addpath(LIB_PATH,'-end');                                                 %
 dbg = true;
 
 dbnm = pathos(strcat(DB_ROOT(LIB_PATH), 'gait/surveillance/'));
+mkdir(pathos('_db/'));
 dbnm_bw = pathos('_db/bw/');
 dbnm_siluet = pathos('_db/siluet/');
 dbnm_64x64  = pathos('_db/64x64/');
 
-if ~exist((pathos('_bkp/bg_model.png'))),
-    bg = bg_model(dbnm, 200, dbg);
+dbnm_bkp = pathos('_bkp/');
+
+if ~exist((pathos(strcat(dbnm_bkp, 'bg_model.png')))),
+    bg = bg_model(dbnm, dbnm_bkp, 200, dbg);
 else
-    bg = imread(pathos('_bkp/bg_model.png'));
+    bg = imread(pathos(strcat(dbnm_bkp, 'bg_model.png')));
 end
 
 if length(dir(strcat(dbnm_bw, '*.png'))) < 1
-    dbnm_bw = frm2bw_db(dbnm, bg, dbg);
+    dbnm_bw = frm2bw_db(dbnm, dbnm_bw, bg, dbg);
 end
 
 DIR = dir(strcat(dbnm, '*.png'));
