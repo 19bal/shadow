@@ -16,10 +16,15 @@ for i=1:sz
     N(i) = length(find(Lv == i));
 end
 
-ind = 1:length(N);
-
 if dbg
-    figure(11), plot(ind, N, '*')
+    figure(11),
+    imshow(L);            title('iskeletler');
+    
+    figure(12), 
+    ind = 1:length(N);
+    plot(ind, N, '*');      title('iskelet uzunluk histogrami');
+    xlabel('indis');    ylabel('Frekans');
+    grid on
 end
 
 [v, iv] = sort(N, 'descend');
@@ -44,6 +49,12 @@ b = dip_image(logical(bws));
 c = bdilation(b, 8,-1,0);
 bwr = logical(a * c);
 
-
+if dbg
+    figure(13)
+    subplot(221),   imshow(bw);             title('bw');
+    subplot(222),   imshow(logical(bws));   title('bws');
+    subplot(223),   imshow(logical(c));     title('dilation');
+    subplot(224),   imshow(bwr);            title('bwr');
+end
 
 
