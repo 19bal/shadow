@@ -1,5 +1,5 @@
-function iskelet_db(dnm_64x64, dbnm_iskelet, dbg)
-% function iskelet_db(dnm_64x64, dbnm_iskelet, dbg)
+function iskelet_db(dbnm_64x64, dbnm_iskelet, dbg)
+% function iskelet_db(dbnm_64x64, dbnm_iskelet, dbg)
 
 iscreate_iskelet = length(dir(strcat(dbnm_iskelet, '*.png'))) < 1;
 
@@ -18,19 +18,21 @@ for f = 1:sz,
     
     a = dip_image(bw);
 
-    a = fillholes(a);
-    a = bclosing(a,1,-1,1);
-    a = fillholes(a);
+    a_f = fillholes(a);
+    a_fc = bclosing(a_f,1,-1,1);
+    a_fcf = fillholes(a_fc);
 
-    b = bskeleton(a,0,'natural');
-    bws = logical(b);
+    a_fcf_skeleton = bskeleton(a_fcf,0,'natural');
+    bws = logical(a_fcf_skeleton);
 
     imwrite(bws, strcat(dbnm_iskelet, imgnm));
     
     if dbg
-        figure(1);
-            subplot(121),   imshow(bw),        title('64x64');
-            subplot(122),   imshow(bws),        title('iskelet');
+        figure(11);
+            subplot(221),   imshow(bw),                 title('64x64');
+            subplot(222),   imshow(logical(a_f)),       title('fillholes');
+            subplot(223),   imshow(logical(a_fc)),      title('closing');
+            subplot(224),   imshow(bws),                title('iskelet');
         drawnow;
     end    
 
