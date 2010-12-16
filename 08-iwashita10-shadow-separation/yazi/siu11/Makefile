@@ -1,11 +1,11 @@
-NAME=			premat
+NAME=			siu
 
 LATEX_FLAGS+=		-src-specials
 LATEX_MK_FLAGS+=	--ignore-errors
 VIEWPDF=		acroread
 
 # Kaynak satırı etkinleştirildiğinde bunu da etkinleştir.
-BIBTEXSRCS=		premat.bib
+BIBTEXSRCS=		siu.bib
 
 EPS_FILES_FROM_JPG:=	$(patsubst %.jpg,%.eps,$(wildcard resim/*.jpg))
 EPS_FILES_FROM_BMP:=	$(patsubst %.bmp,%.eps,$(wildcard resim/*.bmp))

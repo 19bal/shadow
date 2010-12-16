@@ -7,10 +7,13 @@ addpath(LIB_PATH,'-end');                                                 %
 
 dbg = true;
 
-dbnm = pathos('_db/iskelet/');
-dbnm_septs = pathos('_db/septs/');      mkdir(dbnm_septs);
+dbnm_64x64   = pathos('_db/64x64/');    % ../07-medfilt-bgmodel/runme.m
+dbnm_iskelet = pathos('_db/iskelet/');  mkdir(dbnm_64x64);
+dbnm_septs   = pathos('_db/septs/');    mkdir(dbnm_septs);
 
-DIR = dir(strcat(dbnm, '*.png'));
+iskelet_db(dbnm_64x64, dbnm_iskelet, dbg);
+
+DIR = dir(strcat(dbnm_iskelet, '*.png'));
 sz = length(DIR);
 
 dip_initialise('silent');
@@ -19,7 +22,7 @@ for f = 78%:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
     imgnm = DIR(f).name;    
-    bw = imread(strcat(dbnm, imgnm));
+    bw = imread(strcat(dbnm_iskelet, imgnm));
     
     figure(2),  imshow(bw)
     
