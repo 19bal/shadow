@@ -18,7 +18,7 @@ sz = length(DIR);
 
 dip_initialise('silent');
 
-for f = 78%:sz,
+for f = 1:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
     imgnm = DIR(f).name;    
@@ -27,7 +27,7 @@ for f = 78%:sz,
     figure(2),  imshow(bw)
     
     bw = buda(bw, dbg);
-    [bwb, bws] = bs_ayir(bw, dbg);
+    [bwb, bws, ky] = bs_ayir(bw, dbg);
     
     % BUG FIX: her birisi icin ekstra kontrol yap
     % yakin/benzer degilse ele
@@ -37,15 +37,14 @@ for f = 78%:sz,
     
     % imwrite(bws, strcat(dbnm_septs, imgnm));
     %sp_ht = sp_hough(bws, dbg);
-    sp_fe = sp_fitellipse(bwb, bws, dbg);
+    sp_fe = sp_fitellipse(bwb, bws, ky, dbg);
         
     if dbg
         figure(1);
-            subplot(221),   imshow(bwb),        title('');
-            subplot(222),   imshow(bws),        title('');
-            subplot(223),   imshow(bw)
+            imshow(bw)
             hold on;
-            plot(sp_fe(1), sp_fe(2), 'g^');
+            plot(1:size(bw, 2), ky*ones(size(bw,2)), 'r');
+            plot(1:size(bw, 2), sp_fe(2)*ones(size(bw,2)), 'b');
              %legend('hough', 'fitellipse');
             hold off;
         drawnow;
