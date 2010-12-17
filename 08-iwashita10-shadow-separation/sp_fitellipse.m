@@ -1,9 +1,11 @@
-function sp = sp_fitellipse(bwb, bws, dbg)
-% function sp = sp_fitellipse(bwb, bws, dbg)
+function sp = sp_fitellipse(bwb, bws, ky, dbg)
+% function sp = sp_fitellipse(bwb, bws, ky, dbg)
 
 % fitellipse
 ab = myfitellipse(bwb,   dbg);
 as = myfitellipse(bws, dbg);
+
+as(2) = as(2) + ky - 1;
 
 m(1) = tan(ab(5));     b(1) = ab(2) - m(1) * ab(1);
 m(2) = tan(as(5));     b(2) = as(2) - m(2) * as(1);
@@ -21,3 +23,15 @@ else
 end
 
 sp = [x0(1), y0(1)];
+
+if dbg
+    bw = [bwb; bws];
+    
+    figure(41)
+    imshow(bw);
+    
+    hold on
+    ellipse(ab(3), ab(4), ab(5), ab(1), ab(2), 'r');
+    ellipse(as(3), as(4), as(5), as(1), as(2), 'r');
+    hold off
+end
