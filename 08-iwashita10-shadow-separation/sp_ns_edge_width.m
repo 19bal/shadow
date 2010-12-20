@@ -87,21 +87,14 @@ tt3 = tt | tt2;
 subplot(224),   imshow(tt3)
 
 
+
 % Asama 5:
 % bw enerji resminin dis kenarlari goz onune alindiginda, 
 % x-yonundeki iki dis kenar arasi mesafe body-shadow cizgisinde
 % olmaktadir
 
-% dis kenarlar
-[r,c,v] = find(tt3);
-[sr, ind] = sort(r);
-sc = c(ind);
- 
-% genislik
-for i=min(sr):max(sr)
-    t = sc(sr == i);
-    gen(i) = max(t) - min(t);
-end
+% dis kenarlar == x-yonundeki toplam
+gen = sum(tt3, 2);
 
 [mx, tt] = max(gen);
 
@@ -110,7 +103,7 @@ end
 % eger "gen" egrisinde "sp" ye gelmeden onceki yerel tepeye
 % bakilirsa bunun da "el" oldugu gorulebilir.
 x = tt-10:tt+10;
-y = gen(x);
+y = gen(x)';
 
 p = polyfit(x, y, 2);
 
