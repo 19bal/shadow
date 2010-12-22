@@ -54,9 +54,8 @@ y = sgolayfilt(mn_x, 2, 11);
 if dbg
     t=1:size(mn_rot, 1);
 
-    figure(12), 
-    subplot(121),   imshow(mn_rot)
-    subplot(122),   plot(t, y)
+    figure(12),     imshow(mn_rot)
+    figure(13),     plot(t, y)
 end
 
 y2 = y; y2(y2 < 100) = 0;
