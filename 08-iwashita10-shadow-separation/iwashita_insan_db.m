@@ -45,7 +45,7 @@ for f = 1:140 %1:sz,
 
     imwrite(bwt, strcat(dbnm_insan, imgnm));
     if dbg
-        figure(11);  imshow(bw);
+        figure(111);  imshow(bw);
         drawnow;
     end     
  

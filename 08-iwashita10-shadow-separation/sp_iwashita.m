@@ -1,83 +1,72 @@
-% sp_iwashita
-close all;  clear all;  clc;
+function sp = sp_iwashita(dbnm, dbg)
+% function sp = sp_iwashita(dbnm, dbg)
+% 
+% Usage:
+% 
+% % sp_iwashita
+% close all;  clear all;  clc;
+% 
+% %%%%%%%%%%%%%%%% D O   N O T   E D I T   M E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
+% addpath(LIB_PATH,'-end');                                                 %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% dbg = ~true;
+% 
+% dbnm   = pathos('_db/bw/');    % ../07-medfilt-bgmodel/runme.m
+% sp = sp_iwashita(dbnm, dbg)
 
-%%%%%%%%%%%%%%%% D O   N O T   E D I T   M E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
-addpath(LIB_PATH,'-end');                                                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+dbnm_insan = pathos('_db/insan/');
 
-dbg = true;
+iwashita_insan_db(dbnm, dbnm_insan, dbg);
 
-dbnm   = pathos('_db/bw/');    % ../07-medfilt-bgmodel/runme.m
-
-DIR = dir(strcat(dbnm, '*.png'));
-sz = 50;%length(DIR);
+DIR = dir(strcat(dbnm_insan, '*.png'));
+sz = length(DIR);
 
 dip_initialise('silent');
 
 for f = 1:sz,
-    fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
+    if dbg, fprintf('kare %04d/%04d isleniyor ...\n', f, sz);   end
 
-    imgnm = DIR(f+50).name;    
-    bw = imread(strcat(dbnm, imgnm));
+    imgnm = DIR(f).name;    
+    bw = imread(strcat(dbnm_insan, imgnm));
     
-    bw2 = bwareaopen(bw, 35);
-    % bwN(:,:,f) = bw;
-     
-    a = dip_image(bw2);
-    a_f = fillholes(a);
-    a_fc = bclosing(a_f,1,-1,1);
-    a_fcf = fillholes(a_fc);
-    b = brmedgeobjs(a_fcf, 1);
-    bw3 = logical(b);
+    frms(:,:,f) = bw;
     
     if dbg
-        figure(1);  imshow(bw3);
+        figure(11);  imshow(bw);
         drawnow;
     end     
  
 end
 
-% t = 1:64;
-% 
-% bwm  = uint8(255 * mean(double(bwN), 3));
-% bwem = uint8(255 * mean(double(bweN), 3));
-% bwem = (bwem > 0);
-% bwm_x = sum(bwm, 2);
-% bwem_x = sum(bwem, 2);
-% 
-% figure(2), 
-% subplot(221),   imshow(bwm)
-% subplot(222),   plot(bwm_x, t)
-% subplot(223),   imshow(bwem)
-% subplot(224),   plot(bwem_x, t)
-% 
-% bwN_y = sum(double(bwN), 1);
-% bwN_x = sum(double(bwN), 2);
-% 
-% bwN_x_mn = mean(bwN_x, 3);
-% bwN_y_mn = mean(bwN_y, 3);
-% 
-% figure(3),  
-% 
-% subplot(221),  
-% hold on
-% for f=1:sz
-%     plot(t, bwN_x(:,1,f), 'k');
-% end
-% hold off
-% 
-% subplot(223),   plot(bwN_x_mn);
-% 
-% subplot(222),   
-% hold on
-% for f=1:sz
-%     plot(bwN_y(1,:,f), t, 'k');
-% end
-% hold off
-% 
-% subplot(224),   plot(bwN_y_mn, t);
-% 
-% 
-% 
-% 
+% % separation point
+mn = mean(double(frms), 3);
+mn = uint8(255 * mn / max(mn(:)));
+
+bw_mn = (mn > 0);
+s = regionprops(bwlabel(bw_mn), 'orientation');
+mn_rot = imrotate(mn, deg2rad(-s.Orientation), 'bilinear', 'crop');
+
+mn_x = sum(mn_rot, 2);
+y = sgolayfilt(mn_x, 2, 11);
+
+if dbg
+    t=1:size(mn_rot, 1);
+
+    figure(12), 
+    subplot(121),   imshow(mn_rot)
+    subplot(122),   plot(t, y)
+end
+
+y2 = y; y2(y2 < 100) = 0;
+[lmnv, lmni] = lmin(y2, 2);
+[lmxv, lmxi] = lmax(y2, 2);
+
+[t, i] = max(lmxv);
+Ya = lmxi(i);
+
+[t, i] = min(lmnv);
+Yb = lmni(i);
+
+sp = (Ya + Yb) / 2;
