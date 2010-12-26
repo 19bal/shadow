@@ -40,7 +40,7 @@ for f = 1:140 %1:sz,
     ti = si(ci);
     bwm = ismember(L, ti);
     
-    maske altindan bak
+    % maske altindan bak
     bwt = bw & bwm;
 
     imwrite(bwt, strcat(dbnm_insan, imgnm));
