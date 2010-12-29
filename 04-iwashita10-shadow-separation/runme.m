@@ -14,6 +14,8 @@ dbnm_septs   = pathos('_db/septs/');    mkdir(dbnm_septs);
 iskelet_db(dbnm_64x64, dbnm_iskelet, dbg);
 
 DIR = dir(strcat(dbnm_iskelet, '*.png'));
+DIR_64x64 = dir(strcat(dbnm_64x64, '*.png'));
+
 sz = length(DIR);
 
 dip_initialise('silent');
@@ -44,7 +46,8 @@ for f = 1:60 %sz,
         
     if dbg
         figure(1);
-            imshow(bw)
+            bw_64x64 = imread(strcat(dbnm_64x64, imgnm));
+            imshow(bw_64x64)
             hold on;
             plot(1:size(bw, 2), ky*ones(size(bw,2)), 'r');
             plot(1:size(bw, 2), sp_fe(2) * ones(size(bw,2)), 'b');
