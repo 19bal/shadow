@@ -5,11 +5,12 @@ LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
 addpath(LIB_PATH,'-end');                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dbg = true;
+dbg = false;
 
 dbnm_64x64   = pathos('_db/64x64/');    % ../07-medfilt-bgmodel/runme.m
 dbnm_iskelet = pathos('_db/iskelet/');  mkdir(dbnm_64x64);
 dbnm_septs   = pathos('_db/septs/');    mkdir(dbnm_septs);
+fnm_annot    = pathos('_db/annot/sp_annot.csv');
 
 iskelet_db(dbnm_64x64, dbnm_iskelet, dbg);
 
@@ -22,6 +23,9 @@ dip_initialise('silent');
 
 [sp, bbH, bbW] = sp_iwashita(pathos('_db/bw/'), dbg);
 sp = sp / bbH * 64;     % H=64 e normalize et!
+
+if ~exist(fnm_annot),    sp_annot();      end;    
+sp_annot = csvread(fnm_annot);
 
 for f = 1:60 %sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
@@ -51,7 +55,8 @@ for f = 1:60 %sz,
             hold on;
             plot(1:size(bw, 2), ky*ones(size(bw,2)), 'r');
             plot(1:size(bw, 2), sp_fe(2) * ones(size(bw,2)), 'b');
-            plot(1:size(bw, 2), sp       * ones(size(bw,2)), 'g');   
+            plot(1:size(bw, 2), sp       * ones(size(bw,2)), 'g'); 
+            plot(1:size(bw, 2), sp_annot(f)*ones(size(bw,2)), 'y');
              %legend('hough', 'fitellipse');
             hold off;
         drawnow;
@@ -82,3 +87,8 @@ if dbg
     xlabel('frame indis');      ylabel('y-koordinat degeri');
     hold off   
 end
+
+err_iwashita  = sqrt(mean((sp - sp_annot).^2))
+err_our_meth1 = sqrt(mean((SP_ky - sp_annot).^2))
+err_our_meth2 = sqrt(mean((SP_fe - sp_annot).^2))
+
