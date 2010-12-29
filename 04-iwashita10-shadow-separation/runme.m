@@ -18,7 +18,10 @@ sz = length(DIR);
 
 dip_initialise('silent');
 
-for f = 1:sz,
+[sp, bbH, bbW] = sp_iwashita(pathos('_db/bw/'), dbg);
+sp = sp / bbH * 64;     % H=64 e normalize et!
+
+for f = 1:60 %sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
     imgnm = DIR(f).name;    
@@ -44,10 +47,35 @@ for f = 1:sz,
             imshow(bw)
             hold on;
             plot(1:size(bw, 2), ky*ones(size(bw,2)), 'r');
-            plot(1:size(bw, 2), sp_fe(2)*ones(size(bw,2)), 'b');
+            plot(1:size(bw, 2), sp_fe(2) * ones(size(bw,2)), 'b');
+            plot(1:size(bw, 2), sp       * ones(size(bw,2)), 'g');   
              %legend('hough', 'fitellipse');
             hold off;
         drawnow;
     end     
  
+    SP_ky(f) = ky;
+    SP_fe(f) = sp_fe(2);
+    
+    if dbg
+        figure(2),     hold on;    
+        plot(1:length(SP_ky), SP_ky, 'r');
+        plot(1:length(SP_fe), SP_fe, 'b');
+        hold off
+        pause(0.5)
+    end
+end
+
+if dbg
+    fid = 1:length(SP_fe);
+    
+    figure(3),     
+    hold on;    
+    plot(fid, SP_ky, 'r');
+    plot(fid, SP_fe, 'b');
+    plot(fid, sp * ones(size(fid)), 'k');    
+    legend('our-v1', 'our-v2', 'iwashita10');
+    title('separation point');
+    xlabel('frame indis');      ylabel('y-koordinat degeri');
+    hold off   
 end
