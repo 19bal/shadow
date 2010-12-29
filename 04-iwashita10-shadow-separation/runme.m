@@ -82,7 +82,8 @@ if dbg
     plot(fid, SP_ky, 'r');
     plot(fid, SP_fe, 'b');
     plot(fid, sp * ones(size(fid)), 'k');    
-    legend('our-v1', 'our-v2', 'iwashita10');
+    plot(fid, sp_annot, 'y');
+    legend('our-v1', 'our-v2', 'iwashita10', 'annot');
     title('separation point');
     xlabel('frame indis');      ylabel('y-koordinat degeri');
     hold off   
