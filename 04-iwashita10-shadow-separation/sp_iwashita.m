@@ -1,9 +1,9 @@
-function sp = sp_iwashita(dbnm, dbg)
-% function sp = sp_iwashita(dbnm, dbg)
+function [sp, bbH, bbW] = sp_iwashita(dbnm, dbg)
+% function [sp, bbH, bbW] = sp_iwashita(dbnm, dbg)
 % 
 % Usage:
 % 
-% % sp_iwashita
+% sp_iwashita
 % close all;  clear all;  clc;
 % 
 % %%%%%%%%%%%%%%%% D O   N O T   E D I T   M E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11,7 +11,7 @@ function sp = sp_iwashita(dbnm, dbg)
 % addpath(LIB_PATH,'-end');                                                 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
-% dbg = ~true;
+% dbg = true;
 % 
 % dbnm   = pathos('_db/bw/');    % ../07-medfilt-bgmodel/runme.m
 % sp = sp_iwashita(dbnm, dbg)
@@ -45,7 +45,7 @@ mn = mean(double(frms), 3);
 mn = uint8(255 * mn / max(mn(:)));
 
 bw_mn = (mn > 0);
-s = regionprops(bwlabel(bw_mn), 'orientation');
+s = regionprops(bwlabel(bw_mn), 'orientation', 'boundingbox');
 mn_rot = imrotate(mn, deg2rad(-s.Orientation), 'bilinear', 'crop');
 
 mn_x = sum(mn_rot, 2);
@@ -68,4 +68,10 @@ Ya = lmxi(i);
 [t, i] = min(lmnv);
 Yb = lmni(i);
 
-sp = (Ya + Yb) / 2;
+sp = (Ya + Yb) / 2;             % mutlak koordinat
+
+sp = sp - s.BoundingBox(2);     % bbox a gore, goreceli koordinat
+
+bbW = s.BoundingBox(3);
+bbH = s.BoundingBox(4);
+
