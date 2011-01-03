@@ -1,0 +1,1 @@
+makale çevirileri buraya
