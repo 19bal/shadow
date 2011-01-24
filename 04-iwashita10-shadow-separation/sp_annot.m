@@ -1,5 +1,5 @@
 function sp_annot()
-close all;  clear all;  clc;
+%close all;  clear all;  clc;
 
 global KY f
 
