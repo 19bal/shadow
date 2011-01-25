@@ -12,7 +12,7 @@ dbnm_iskelet = pathos('_db/iskelet/');  mkdir(dbnm_64x64);
 dbnm_septs   = pathos('_db/septs/');    mkdir(dbnm_septs);
 fnm_annot    = pathos('_db/annot/sp_annot.csv');
 
-iskelet_db(dbnm_64x64, dbnm_iskelet, dbg);
+%iskelet_db(dbnm_64x64, dbnm_iskelet, dbg);
 
 DIR = dir(strcat(dbnm_iskelet, '*.png'));
 DIR_64x64 = dir(strcat(dbnm_64x64, '*.png'));
@@ -24,10 +24,10 @@ dip_initialise('silent');
 [sp, bbH, bbW] = sp_iwashita(pathos('_db/bw/'), dbg);
 sp = sp / bbH * 64;     % H=64 e normalize et!
 
-if ~exist(fnm_annot),    sp_annot();      end;    
-sp_annot = csvread(fnm_annot);
+% if ~exist(fnm_annot),    sp_annot();      end;    
+% sp_annot = csvread(fnm_annot);
 
-for f = 1:60 %sz,
+for f = [1:73 75 77:117 119:120 122:sz]%122:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
     imgnm = DIR(f).name;    
@@ -56,7 +56,7 @@ for f = 1:60 %sz,
             plot(1:size(bw, 2), ky*ones(size(bw,2)), 'r');
             plot(1:size(bw, 2), sp_fe(2) * ones(size(bw,2)), 'b');
             plot(1:size(bw, 2), sp       * ones(size(bw,2)), 'g'); 
-            plot(1:size(bw, 2), sp_annot(f)*ones(size(bw,2)), 'y');
+            %plot(1:size(bw, 2), sp_annot(f)*ones(size(bw,2)), 'y');
              %legend('hough', 'fitellipse');
             hold off;
         drawnow;
@@ -73,6 +73,15 @@ for f = 1:60 %sz,
         pause(0.5)
     end
 end
+
+% [1:73 75 77:117 119:120 122:sz]
+ind = [74 76 118 121];
+SP_ky(ind) = (SP_ky(ind-1), SP_ky(ind+1))/2;
+SP_fe(ind) = (SP_fe(ind-1), SP_fe(ind+1))/2;
+
+save(pathos('_bkp/sp_our_ky.mat'), 'SP_ky');
+save(pathos('_bkp/sp_our_fe.mat'), 'SP_fe');
+save(pathos('_bkp/sp_iwashita.mat'), 'sp');
 
 if dbg
     fid = 1:length(SP_fe);
