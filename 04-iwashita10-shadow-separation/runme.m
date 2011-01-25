@@ -88,14 +88,14 @@ if dbg
     
     figure(3),     
     hold on;    
-    plot(fid, SP_ky, 'r');
-    plot(fid, SP_fe, 'b');
-    plot(fid, sp * ones(size(fid)), 'k');    
-    plot(fid, sp_annot, 'y');
+    plot(fid, SP_ky, 'k--');
+    plot(fid, SP_fe, 'k-.');
+    plot(fid, sp * ones(size(fid)), 'k:');    
+    plot(fid, sp_annot, 'k-');
     legend('our-v1', 'our-v2', 'iwashita10', 'annot');
     title('separation point');
     xlabel('frame indis');      ylabel('y-koordinat degeri');
-    hold off   
+    hold off       
 end
 
 err_iwashita  = sqrt(mean((sp - sp_annot).^2))
