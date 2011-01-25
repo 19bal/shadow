@@ -24,30 +24,30 @@ dip_initialise('silent');
 [sp, bbH, bbW] = sp_iwashita(pathos('_db/bw/'), dbg);
 sp = sp / bbH * 64;     % H=64 e normalize et!
 
-% if ~exist(fnm_annot),    sp_annot();      end;    
+% if ~exist(fnm_annot),    sp_annot();      end;
 % sp_annot = csvread(fnm_annot);
 
 for f = [1:73 75 77:117 119:120 122:sz]%122:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
-    imgnm = DIR(f).name;    
+    imgnm = DIR(f).name;
     bw = imread(strcat(dbnm_iskelet, imgnm));
-    
+
     figure(2),  imshow(bw)
-    
+
     bw = buda(bw, dbg);
     [bwb, bws, ky] = bs_ayir(bw, dbg);
-    
+
     % BUG FIX: her birisi icin ekstra kontrol yap
     % yakin/benzer degilse ele
-    
+
     % egri uydur: body, shadow
     % iki egrinin kesim noktasi = ayrim noktasidir
-    
+
     % imwrite(bws, strcat(dbnm_septs, imgnm));
     %sp_ht = sp_hough(bws, dbg);
     sp_fe = sp_fitellipse(bwb, bws, ky, dbg);
-        
+
     if dbg
         figure(1);
             bw_64x64 = imread(strcat(dbnm_64x64, imgnm));
@@ -55,18 +55,18 @@ for f = [1:73 75 77:117 119:120 122:sz]%122:sz,
             hold on;
             plot(1:size(bw, 2), ky*ones(size(bw,2)), 'r');
             plot(1:size(bw, 2), sp_fe(2) * ones(size(bw,2)), 'b');
-            plot(1:size(bw, 2), sp       * ones(size(bw,2)), 'g'); 
+            plot(1:size(bw, 2), sp       * ones(size(bw,2)), 'g');
             %plot(1:size(bw, 2), sp_annot(f)*ones(size(bw,2)), 'y');
              %legend('hough', 'fitellipse');
             hold off;
         drawnow;
-    end     
- 
+    end
+
     SP_ky(f) = ky;
     SP_fe(f) = sp_fe(2);
-    
+
     if dbg
-        figure(2),     hold on;    
+        figure(2),     hold on;
         plot(1:length(SP_ky), SP_ky, 'r');
         plot(1:length(SP_fe), SP_fe, 'b');
         hold off
@@ -85,17 +85,17 @@ save(pathos('_bkp/sp_iwashita.mat'), 'sp');
 
 if dbg
     fid = 1:length(SP_fe);
-    
-    figure(3),     
-    hold on;    
+
+    figure(3),
+    hold on;
     plot(fid, SP_ky, 'k--');
     plot(fid, SP_fe, 'k-.');
-    plot(fid, sp * ones(size(fid)), 'k:');    
+    plot(fid, sp * ones(size(fid)), 'k:');
     plot(fid, sp_annot, 'k-');
     legend('our-v1', 'our-v2', 'iwashita10', 'annot');
     title('separation point');
     xlabel('frame indis');      ylabel('y-koordinat degeri');
-    hold off       
+    hold off
 end
 
 err_iwashita  = sqrt(mean((sp - sp_annot).^2))

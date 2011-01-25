@@ -1,9 +1,13 @@
 function iwashita_insan_db(dbnm, dbnm_insan, dbg)
 % function iwashita_insan_db(dbnm, dbnm_insan, dbg)
+%
+% Usage
+%   iwashita_insan_db(pathos('_db/bw/'), pathos('_db/insan/'), true);
+
 mkdir(dbnm_insan);
 
 if length(dir(strcat(dbnm_insan, '*.png'))) > 1,  return,     end
-    
+
 DIR = dir(strcat(dbnm, '*.png'));
 sz = length(DIR);
 
@@ -12,12 +16,12 @@ dip_initialise('silent');
 for f = 1:140 %1:sz,
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
-    imgnm = DIR(f).name;    
+    imgnm = DIR(f).name;
     bw = imread(strcat(dbnm, imgnm));
-    
+
     % ele
     bw2 = bwareaopen(bw, 35);
-    
+
     % onisle
     a = dip_image(bw2);
     a_f = fillholes(a);
@@ -25,7 +29,7 @@ for f = 1:140 %1:sz,
     a_fcf = fillholes(a_fc);
     b = brmedgeobjs(a_fcf, 1);
     bw3 = logical(b);
-    
+
     % sec
     L = bwlabel(bw3);
     s = regionprops(L, {'area', 'centroid'});
@@ -39,7 +43,7 @@ for f = 1:140 %1:sz,
 
     ti = si(ci);
     bwm = ismember(L, ti);
-    
+
     % maske altindan bak
     bwt = bw & bwm;
 
@@ -47,7 +51,7 @@ for f = 1:140 %1:sz,
     if dbg
         figure(111);  imshow(bw);
         drawnow;
-    end     
- 
+    end
+
 end
 

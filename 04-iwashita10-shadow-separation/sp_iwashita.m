@@ -1,18 +1,18 @@
 function [sp, bbH, bbW] = sp_iwashita(dbnm, dbg)
 % function [sp, bbH, bbW] = sp_iwashita(dbnm, dbg)
-% 
+%
 % Usage:
-% 
+%
 % sp_iwashita
 % close all;  clear all;  clc;
-% 
+%
 % %%%%%%%%%%%%%%%% D O   N O T   E D I T   M E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
 % addpath(LIB_PATH,'-end');                                                 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
+%
 % dbg = true;
-% 
+%
 % dbnm   = pathos('_db/bw/');    % ../07-medfilt-bgmodel/runme.m
 % sp = sp_iwashita(dbnm, dbg)
 
@@ -28,16 +28,16 @@ dip_initialise('silent');
 for f = 1:sz,
     if dbg, fprintf('kare %04d/%04d isleniyor ...\n', f, sz);   end
 
-    imgnm = DIR(f).name;    
+    imgnm = DIR(f).name;
     bw = imread(strcat(dbnm_insan, imgnm));
-    
+
     frms(:,:,f) = bw;
-    
+
     if dbg
         figure(11);  imshow(bw);
         drawnow;
-    end     
- 
+    end
+
 end
 
 % % separation point
