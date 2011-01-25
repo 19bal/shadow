@@ -5,7 +5,7 @@ LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
 addpath(LIB_PATH,'-end');                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dbg = false;
+dbg = true;
 
 dbnm_64x64   = pathos('_db/64x64/');    % ../07-medfilt-bgmodel/runme.m
 dbnm_iskelet = pathos('_db/iskelet/');  mkdir(dbnm_64x64);
