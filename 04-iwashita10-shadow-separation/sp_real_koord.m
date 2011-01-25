@@ -1,13 +1,13 @@
 function sp_real_koord(dbg);
 
-% SP
+% SP: runme.m
 load(pathos('_bkp/sp_our_ky.mat'));
 load(pathos('_bkp/sp_our_fe.mat'));
 load(pathos('_bkp/sp_iwashita.mat'));
 
 % BBOX
-bbox_insan = db_bbox(pathos('_db/insan/'), dbg);
-bbox_64x64 = db_bbox(pathos('_db/64x64/'), dbg);
+bbox_insan = db_bbox(pathos('_db/insan/'), dbg);    % db_bbox(pathos('_db/insan/'), true);
+bbox_64x64 = db_bbox(pathos('_db/64x64/'), dbg);    % db_bbox(pathos('_db/64x64/'), true);
 
 sz = min([length(bbox_insan), length(bbox_64x64), length(SP_ky), length(SP_fe)]);
 bbox_insan = bbox_insan(1:sz, :);

@@ -27,7 +27,7 @@ sp = sp / bbH * 64;     % H=64 e normalize et!
 % if ~exist(fnm_annot),    sp_annot();      end;
 % sp_annot = csvread(fnm_annot);
 
-for f = [1:73 75 77:117 119:120 122:sz]%122:sz,
+for f = [1:73 75 77:95 97:117 119:120 122:sz],
     fprintf('kare %04d/%04d isleniyor ...\n', f, sz);
 
     imgnm = DIR(f).name;
@@ -74,11 +74,12 @@ for f = [1:73 75 77:117 119:120 122:sz]%122:sz,
     end
 end
 
-% [1:73 75 77:117 119:120 122:sz]
-ind = [74 76 118 121];
-SP_ky(ind) = (SP_ky(ind-1), SP_ky(ind+1))/2;
-SP_fe(ind) = (SP_fe(ind-1), SP_fe(ind+1))/2;
+% f = [1:73 75 77:95 97:117 119:120 122:sz],
+ind = [74 76 96 118 121];
+SP_ky(ind) = (SP_ky(ind-1) + SP_ky(ind+1))/2;
+SP_fe(ind) = (SP_fe(ind-1) + SP_fe(ind+1))/2;
 
+mkdir(pathos('_bkp/'));
 save(pathos('_bkp/sp_our_ky.mat'), 'SP_ky');
 save(pathos('_bkp/sp_our_fe.mat'), 'SP_fe');
 save(pathos('_bkp/sp_iwashita.mat'), 'sp');

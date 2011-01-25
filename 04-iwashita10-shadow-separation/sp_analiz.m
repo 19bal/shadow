@@ -12,9 +12,9 @@ dbnm   = pathos('_db/insan/');              % iwashita_insan_db.m
 dbnm_gtruth = pathos('_db/gtruth/');        % https://github.com/downloads/19bal/shadow/surveillance_gtruth.tar.gz
 
 % bboxs
-load(strcat(dbnm, 'bbox.mat'));             % db_bbox.m
+load(strcat(dbnm, 'bbox.mat'));             % db_bbox(pathos('_db/insan/'), true);
 
-% sp: runme.m
+% sp: sp_real_koord(true);
 load(pathos('_bkp/sp_our_ky_real.mat'));    % 'SP_ky_r'
 load(pathos('_bkp/sp_our_fe_real.mat'));    % 'SP_fe_r'
 load(pathos('_bkp/sp_iwashita_real.mat'));  % 'SP_iw_r'
@@ -26,8 +26,8 @@ sz = length(DIR);
 for f=1:sz
     if dbg, fprintf('%d. frame isleniyor...\n', f); end
 
-    gtruth = load('_db/gtruth/bbox.mat');   % as gtruth.bboxs
-    gtruth.img = imread(strcat(dbnm_gtruth, DIR_gtruth(f).name));
+    gtruth = load('_db/gtruth/bbox.mat');   % db_bbox(pathos('_db/gtruth/'), true); % as gtruth.bboxs
+    gtruth.img = imcrop(imread(strcat(dbnm_gtruth, DIR_gtruth(f).name)), gtruth.bboxs(f, :));
 
     frm = imread(strcat(dbnm, DIR(f).name));
     bw = imcrop(frm, bboxs(f, :));
