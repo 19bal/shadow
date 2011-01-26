@@ -7,6 +7,7 @@ addpath(LIB_PATH,'-end');                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 dbg = true;
+dip_initialise('silent');
 
 dbnm   = pathos('_db/insan/');              % iwashita_insan_db.m
 dbnm_gtruth = pathos('_db/gtruth/');        % https://github.com/downloads/19bal/shadow/surveillance_gtruth.tar.gz
@@ -34,15 +35,60 @@ for f=1:sz
 
     sp = round(SP_fe_r(f) - bboxs(f, 2) + 1);
 
-    bwb = bw(1:sp,   :);
-    bws = bw(sp:end, :);
+    bwb = bw(1:sp,   :);    bwb = imcrop(bwb, bobox(bwb));
+    bws = bw(sp:end, :);    bws = imcrop(bws, bobox(bws));
+    
+    % X. centroid'leri cakistir
+    s = regionprops(double(gtruth.img), 'centroid', 'boundingbox');
+    centroid_gt = cat(1, s.Centroid);
+    bbox_gt = cat(1, s.BoundingBox);
 
-    if dbg,
+    s = regionprops(double(bws), 'centroid', 'boundingbox');
+    centroid_bs = cat(1, s.Centroid);
+    bbox_bs = cat(1, s.BoundingBox);
+    
+    % a) kaydirma miktari
+    kmX = round(centroid_bs(1) - centroid_gt(1));
+    kmY = round(centroid_bs(2) - centroid_gt(2));
+    
+    % b) genisletilmis resmin-W | H
+    W = ceil(max(size(gtruth.img, 2) + abs(kmX), size(bws, 2) + abs(kmX)));
+    H = ceil(max(size(gtruth.img, 1) + abs(kmY), size(bws, 1) + abs(kmY)));
+    
+    % d) resimleri olustur
+    y_bs = boolean(zeros(H, W));
+    y_gt = boolean(zeros(H, W));
+    
+    kX = 1;         if kmX < 0,   kX = abs(kmX);   end
+    kY = 1;         if kmY < 0,   kY = abs(kmY);   end
+    y_bs(kY:(kY+size(bws,1)-1), kX:(kX+size(bws,2)-1)) = bws;
+    
+    kX = kmX;         if kmX <= 0,   kX = 1;   end
+    kY = kmY;         if kmY <= 0,   kY = 1;   end
+    y_gt(kY:(kY+size(gtruth.img,1)-1), kX:(kX+size(gtruth.img,2)-1)) = gtruth.img;
+    
+    if dbg, % edge(double(), 'canny'))
+        if min(size(y_bs) == size(y_gt)) ~= 1
+            error('Yeni resimlerin boyutlari farkli')
+        end
+
+        s = regionprops(double(y_gt), 'centroid'); 
+        centroid_gt = cat(1, s.Centroid);
+        
+        s = regionprops(double(y_bs), 'centroid'); 
+        centroid_bs = cat(1, s.Centroid);
+        
+        if max(abs(centroid_gt - centroid_bs)) > 2
+            error('Agirlik merkezleri hala uzak!');
+        end
+        
         figure(11),
         subplot(221),   imshow(bw);                                         title('bw');
-        subplot(222),   imshow(edge(double(gtruth.img), 'canny'));          title('gtruth');
-        subplot(223),   imshow(edge(double(bwb), 'canny'));                 title('body');
-        subplot(224),   imshow(edge(double(bws), 'canny'));                 title('shadow');
+        subplot(222),   imshow(y_gt);          title('gtruth');
+        subplot(223),   imshow(bwb);                 title('body');
+        subplot(224),   
+            t_bs = uint8(overlay(y_bs, edge(double(y_gt), 'canny'),  [255 0 0]));
+            imshow(t_bs);   title('bws uzerine kirmizi: gtruth')
         drawnow
-    end
+    end    
 end
