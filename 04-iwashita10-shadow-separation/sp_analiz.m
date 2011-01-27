@@ -1,5 +1,6 @@
 % function sp_analiz(dbg)
 close all;  clear all;  clc;
+warning off all;
 
 %%%%%%%%%%%%%%%% D O   N O T   E D I T   M E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 LIB_PATH = sprintf('..%slib%s', filesep,filesep);                         %
@@ -34,14 +35,19 @@ for f=1:sz
     bw = imcrop(frm, bboxs(f, :));
 
     [bwb, bws] = bw_bs_ayir(bw, round(SP_fe_r(f) - bboxs(f, 2) + 1), dbg);
-
-   [y_gt, y_bws] = shadow_cakistir(gtruth.img, bws, dbg);  
+    [y_gt, y_bws] = shadow_cakistir(gtruth.img, bws, dbg);
    
-   if dbg,
-       figure(1),
+    % error metrikleri
+    err.mse = mse(double(y_bws), double(y_gt));
+    err.mae = mae(double(y_bws), double(y_gt));
+    err.mre = mre(double(y_bws), double(y_gt + 1e-3));
+    err.lfmse = lfmse(double(y_bws), double(y_gt))
+    
+    if dbg,
+        figure(1),
         t_bs = uint8(overlay(y_bws, edge(double(y_gt), 'canny'),  [255 0 0]));
         imshow(t_bs);   
         title('bws uzerine kirmizi: gtruth')
         pause(0.3); drawnow
-   end
+    end
 end
